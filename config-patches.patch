@@ -1,0 +1,58 @@
+diff --git a/defaults/nginx.conf b/defaults/nginx.conf
+index 8116dd2..987fb31 100644
+--- a/defaults/nginx.conf
++++ b/defaults/nginx.conf
+@@ -12,7 +12,7 @@ upstream backendrutorrent {
+         server unix:/run/php/php-fpm-rutorrent.sock;
+ }
+ upstream backendrtorrent {
+-        server unix:/run/php/.rtorrent.sock;
++        server 127.0.0.1:5000;
+ }
+ 
+ 	##
+diff --git a/defaults/rtorrent.rc b/defaults/rtorrent.rc
+index 2d4d0c7..2558bc2 100644
+--- a/defaults/rtorrent.rc
++++ b/defaults/rtorrent.rc
+@@ -1,8 +1,5 @@
+ execute = {sh,-c,/usr/bin/php7 /usr/share/webapps/rutorrent/php/initplugins.php abc &}
+ execute.nothrow = rm,/run/php/.rtorrent.sock
+-network.scgi.open_local = /run/php/.rtorrent.sock
+-schedule = socket_chmod,0,0,"execute=chmod,0660,/run/php/.rtorrent.sock"
+-schedule = socket_chgrp,0,0,"execute=chgrp,abc,/run/php/.rtorrent.sock"
+ log.open_file = "rtorrent", /config/log/rtorrent/rtorrent.log
+ log.add_output = "info", "rtorrent"
+ min_peers = 40
+@@ -24,6 +21,6 @@ dht = auto
+ dht_port = 6881
+ peer_exchange = yes
+ # network.http.ssl_verify_peer.set=0
+-# scgi_port = 0.0.0.0:5000
++scgi_port = 0.0.0.0:5000
+ encoding_list = UTF-8
+ # system.umask.set = 022
+diff --git a/defaults/rutorrent-conf/config.php b/defaults/rutorrent-conf/config.php
+index 7913233..da98128 100644
+--- a/defaults/rutorrent-conf/config.php
++++ b/defaults/rutorrent-conf/config.php
+@@ -27,15 +27,15 @@
+ 	$topDirectory = '/';			// Upper available directory. Absolute path with trail slash.
+ 	$forbidUserSettings = false;
+ 
+-	// $scgi_port = 5000;
+-	// $scgi_host = "127.0.0.1";
++	$scgi_port = 5000;
++	$scgi_host = "127.0.0.1";
+ 
+ 	// For web->rtorrent link through unix domain socket
+ 	// (scgi_local in rtorrent conf file), change variables
+ 	// above to something like this:
+ 	//
+-	$scgi_port = 0;
+-	$scgi_host = "unix:////run/php/.rtorrent.sock";
++	// $scgi_port = 0;
++	// $scgi_host = "unix:////run/php/.rtorrent.sock";
+ 
+ 	$XMLRPCMountPoint = "/RPC2";		// DO NOT DELETE THIS LINE!!! DO NOT COMMENT THIS LINE!!!
+ 
