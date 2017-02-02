@@ -1,7 +1,7 @@
 FROM linuxserver/rutorrent:58
 MAINTAINER djmattyg007
 
-ENV RTORRENTIMAGE_VERSION=2017.02.02-1
+ENV RTORRENTIMAGE_VERSION=2017.02.03-1
 
 RUN apk add --no-cache dhcpcd
 COPY dhcpcd.sh /etc/services.d/dhcpcd/run

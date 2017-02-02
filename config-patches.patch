@@ -3,12 +3,12 @@ index 8116dd2..987fb31 100644
 --- a/defaults/nginx.conf
 +++ b/defaults/nginx.conf
 @@ -12,7 +12,7 @@ upstream backendrutorrent {
-         server unix:/run/php/php-fpm-rutorrent.sock;
- }
- upstream backendrtorrent {
--        server unix:/run/php/.rtorrent.sock;
-+        server 127.0.0.1:5000;
- }
+ 		server unix:/run/php/php-fpm-rutorrent.sock;
+ 	}
+ 	upstream backendrtorrent {
+-		server unix:/run/php/.rtorrent.sock;
++		server 127.0.0.1:5000;
+ 	}
  
  	##
 diff --git a/defaults/rtorrent.rc b/defaults/rtorrent.rc
@@ -28,10 +28,10 @@ index 2d4d0c7..2558bc2 100644
  dht_port = 6881
  peer_exchange = yes
  # network.http.ssl_verify_peer.set=0
--# scgi_port = 0.0.0.0:5000
+-# scgi_port = 0.0.0.0:5000
 +scgi_port = 0.0.0.0:5000
  encoding_list = UTF-8
- # system.umask.set = 022
+ # system.umask.set = 022
 diff --git a/defaults/rutorrent-conf/config.php b/defaults/rutorrent-conf/config.php
 index 7913233..da98128 100644
 --- a/defaults/rutorrent-conf/config.php
